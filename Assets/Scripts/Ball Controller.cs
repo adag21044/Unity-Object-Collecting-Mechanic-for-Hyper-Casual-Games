@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
+    [SerializeField] private List<GameObject> balls = new List<GameObject>(); 
     [SerializeField] private float ZAxisSpeed;
     [SerializeField] private float horizontalSpeed = 10f;
     [SerializeField] private float horizontalLimit = 2.14f;
@@ -47,5 +49,28 @@ public class BallController : MonoBehaviour
     private void ForwardMove()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * ZAxisSpeed);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+         if (other.gameObject.CompareTag("BallStack"))
+        {
+            other.gameObject.transform.SetParent(transform);
+            other.gameObject.GetComponent<SphereCollider>().enabled = false;
+
+            // Eğer ball listesinde hiç top yoksa ilk topu 0 konumuna yerleştir
+            if (balls.Count == 0)
+            {
+                other.gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
+            }
+            else
+            {
+                // Eğer ball listesinde top varsa, önceki topun arkasına yerleştir
+                other.gameObject.transform.localPosition = new Vector3(0f, 0f, balls[balls.Count - 1].transform.localPosition.z - 1f);
+            }
+
+            // Yeni topu ball listesine ekle
+            balls.Add(other.gameObject);
+        }
     }
 }

@@ -719,6 +719,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5572bee1ab1ee44af2aa7dba2312ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  balls:
+  - {fileID: 1773146738}
   ZAxisSpeed: 5
   horizontalSpeed: 3.52
   horizontalLimit: 2.2
@@ -824,7 +826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1214672757750193212, guid: 72ce5e14eb12eb74fbf9cf8a9799b6c2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.85
+      value: 0.8499999
       objectReference: {fileID: 0}
     - target: {fileID: 1214672757750193212, guid: 72ce5e14eb12eb74fbf9cf8a9799b6c2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -832,15 +834,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1214672757750193212, guid: 72ce5e14eb12eb74fbf9cf8a9799b6c2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1214672757750193212, guid: 72ce5e14eb12eb74fbf9cf8a9799b6c2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1214672757750193212, guid: 72ce5e14eb12eb74fbf9cf8a9799b6c2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1214672757750193212, guid: 72ce5e14eb12eb74fbf9cf8a9799b6c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -871,8 +873,8 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1399038908}
   - {fileID: 1773146742}
-  - {fileID: 1446218675567820975}
   - {fileID: 2049305460}
   - {fileID: 583344579}
   - {fileID: 1362809274}
   - {fileID: 429201088}
+  - {fileID: 1446218675567820975}
