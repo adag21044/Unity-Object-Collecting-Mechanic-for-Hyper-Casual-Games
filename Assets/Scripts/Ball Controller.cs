@@ -4,6 +4,7 @@ using TMPro;
 
 public class BallController : MonoBehaviour
 {
+    public GameObject ballPrefab;
     [SerializeField] private TMP_Text _ballCountText = null;
     [SerializeField] private List<GameObject> balls = new List<GameObject>(); 
     [SerializeField] private float ZAxisSpeed;
@@ -12,6 +13,7 @@ public class BallController : MonoBehaviour
     private float horizontal;
     private bool isDragging = false;  // Fareye basılıp sürüklenip sürüklenmediğini takip eder
     private Vector3 lastMousePosition;
+    public int gateNumber;
 
     // Update is called once per frame
     void Update()
@@ -61,7 +63,7 @@ public class BallController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-         if (other.gameObject.CompareTag("BallStack"))
+        if (other.gameObject.CompareTag("BallStack"))
         {
             other.gameObject.transform.SetParent(transform);
             other.gameObject.GetComponent<SphereCollider>().enabled = false;
@@ -79,6 +81,33 @@ public class BallController : MonoBehaviour
 
             // Yeni topu ball listesine ekle
             balls.Add(other.gameObject);
+        }
+
+        if(other.gameObject.CompareTag("Gate"))
+        {
+            gateNumber = other.gameObject.GetComponent<GateController>().GateNumber;
+
+            if(gateNumber > 0)
+            {
+                IncreaseBallCount();
+            }
+            else
+            if(gateNumber < 0)
+            {
+                
+            }
+        }
+    }
+
+    private void IncreaseBallCount()
+    {
+        for(int i = 0; i < gateNumber; i++)
+        {
+            GameObject newBall = Instantiate(ballPrefab);
+            newBall.transform.SetParent(transform);
+            newBall.GetComponent<SphereCollider>().enabled = false;
+            newBall.transform.localPosition = new Vector3(0f, 0f, balls[balls.Count - 1].transform.localPosition.z - 1f);
+            balls.Add(newBall);
         }
     }
 }
