@@ -791,6 +791,7 @@ GameObject:
   - component: {fileID: 1010024292}
   - component: {fileID: 1010024291}
   - component: {fileID: 1010024290}
+  - component: {fileID: 1010024293}
   m_Layer: 0
   m_Name: Negative_Gate
   m_TagString: Gate
@@ -887,6 +888,21 @@ Transform:
   - {fileID: 134444476}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1010024293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010024289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cefe6b5175b70d45b9f05e50bb52be9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gateNumberText: {fileID: 134444477}
+  gateType: 1
+  gateNumber: 0
 --- !u!1 &1058261324
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,6 +913,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1058261326}
   - component: {fileID: 1058261325}
+  - component: {fileID: 1058261327}
   m_Layer: 0
   m_Name: Positive_Gate
   m_TagString: Untagged
@@ -972,6 +989,21 @@ Transform:
   - {fileID: 1876869782}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1058261327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058261324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cefe6b5175b70d45b9f05e50bb52be9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gateNumberText: {fileID: 1876869783}
+  gateType: 0
+  gateNumber: 0
 --- !u!1001 &1362809274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1321,7 +1353,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.4565215, y: 0}
+  m_AnchoredPosition: {x: 0.09, y: 0}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1876869783
