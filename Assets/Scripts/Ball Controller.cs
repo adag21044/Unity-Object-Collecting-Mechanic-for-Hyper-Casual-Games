@@ -14,6 +14,7 @@ public class BallController : MonoBehaviour
     private bool isDragging = false;  // Fareye basılıp sürüklenip sürüklenmediğini takip eder
     private Vector3 lastMousePosition;
     public int gateNumber;
+    private int targetCount;
 
     // Update is called once per frame
     void Update()
@@ -25,8 +26,6 @@ public class BallController : MonoBehaviour
 
     private void HorizontalMove()
     {
-        float newX;
-
         if (Input.GetMouseButtonDown(0)) // Fareye basıldığında
         {
             isDragging = true;  // Sürükleme işlemi başlıyor
@@ -41,12 +40,9 @@ public class BallController : MonoBehaviour
         {
             Vector3 currentMousePosition = Input.mousePosition;  // Şu anki fare pozisyonunu al
             float deltaX = (currentMousePosition.x - lastMousePosition.x) * horizontalSpeed * Time.deltaTime;  // X eksenindeki fare hareketini al
-
-            newX = transform.position.x + deltaX;
-            newX = Mathf.Clamp(newX, -horizontalLimit, horizontalLimit);  // X pozisyonunu sınırlandır
+            float newX = Mathf.Clamp(transform.position.x + deltaX, -horizontalLimit, horizontalLimit);  // X pozisyonunu sınırlandır
 
             transform.position = new Vector3(newX, transform.position.y, transform.position.z);  // Yeni pozisyona taşı
-
             lastMousePosition = currentMousePosition;  // Son fare pozisyonunu güncelle
         }
     }
@@ -63,51 +59,74 @@ public class BallController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("BallStack"))
+        if (other.CompareTag("BallStack"))
         {
-            other.gameObject.transform.SetParent(transform);
-            other.gameObject.GetComponent<SphereCollider>().enabled = false;
-
-            // Eğer ball listesinde hiç top yoksa ilk topu 0 konumuna yerleştir
-            if (balls.Count == 0)
-            {
-                other.gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
-            }
-            else
-            {
-                // Eğer ball listesinde top varsa, önceki topun arkasına yerleştir
-                other.gameObject.transform.localPosition = new Vector3(0f, 0f, balls[balls.Count - 1].transform.localPosition.z - 1f);
-            }
-
-            // Yeni topu ball listesine ekle
-            balls.Add(other.gameObject);
+            AddBallToStack(other.gameObject);
         }
-
-        if(other.gameObject.CompareTag("Gate"))
+        else if (other.CompareTag("Gate"))
         {
-            gateNumber = other.gameObject.GetComponent<GateController>().GateNumber;
-
-            if(gateNumber > 0)
-            {
-                IncreaseBallCount();
-            }
-            else
-            if(gateNumber < 0)
-            {
-                
-            }
+            HandleGateInteraction(other.GetComponent<GateController>().GateNumber);
         }
     }
 
-    private void IncreaseBallCount()
+    private void AddBallToStack(GameObject newBall)
     {
-        for(int i = 0; i < gateNumber; i++)
+        newBall.transform.SetParent(transform);
+        newBall.GetComponent<SphereCollider>().enabled = false;
+
+        // Eğer ball listesinde hiç top yoksa ilk topu 0 konumuna yerleştir
+        if (balls.Count == 0)
+        {
+            newBall.transform.localPosition = Vector3.zero;
+        }
+        else
+        {
+            // Eğer ball listesinde top varsa, önceki topun arkasına yerleştir
+            Vector3 previousBallPosition = balls[balls.Count - 1].transform.localPosition;
+            newBall.transform.localPosition = new Vector3(0f, 0f, previousBallPosition.z - 1f);
+        }
+
+        balls.Add(newBall);
+    }
+
+    private void HandleGateInteraction(int gateValue)
+    {
+        gateNumber = gateValue;
+        targetCount = balls.Count + gateNumber;
+
+        if (gateNumber > 0)
+        {
+            IncreaseBallCount(gateNumber);
+        }
+        else if (gateNumber < 0)
+        {
+            DecreaseBallCount(-gateNumber);  // Pozitif değerle işlem yap
+        }
+    }
+
+    private void IncreaseBallCount(int count)
+    {
+        for (int i = 0; i < count; i++)
         {
             GameObject newBall = Instantiate(ballPrefab);
             newBall.transform.SetParent(transform);
             newBall.GetComponent<SphereCollider>().enabled = false;
-            newBall.transform.localPosition = new Vector3(0f, 0f, balls[balls.Count - 1].transform.localPosition.z - 1f);
+
+            Vector3 lastBallPosition = balls[balls.Count - 1].transform.localPosition;
+            newBall.transform.localPosition = new Vector3(0f, 0f, lastBallPosition.z - 1f);
+
             balls.Add(newBall);
         }
     }
+
+    private void DecreaseBallCount(int count)
+    {
+        for (int i = 0; i < count && balls.Count > 0; i++)
+        {
+            GameObject lastBall = balls[balls.Count - 1];
+            balls.RemoveAt(balls.Count - 1);
+            Destroy(lastBall);  // Topu yok et
+        }
+    }
 }
+
