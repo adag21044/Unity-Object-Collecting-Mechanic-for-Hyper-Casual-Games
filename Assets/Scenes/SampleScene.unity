@@ -294,11 +294,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &282777318 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1214672757750193212, guid: 72ce5e14eb12eb74fbf9cf8a9799b6c2, type: 3}
-  m_PrefabInstance: {fileID: 2049305460}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &429201088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -881,7 +876,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 282777318}
   - {fileID: 114426169}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -897,6 +891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5572bee1ab1ee44af2aa7dba2312ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ballCountText: {fileID: 114426170}
   balls:
   - {fileID: 1773146738}
   ZAxisSpeed: 5
@@ -935,7 +930,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1773146742}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1214672757750193212, guid: 72ce5e14eb12eb74fbf9cf8a9799b6c2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -943,11 +938,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1214672757750193212, guid: 72ce5e14eb12eb74fbf9cf8a9799b6c2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.022
       objectReference: {fileID: 0}
     - target: {fileID: 1214672757750193212, guid: 72ce5e14eb12eb74fbf9cf8a9799b6c2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.52
+      value: 5.2000003
       objectReference: {fileID: 0}
     - target: {fileID: 1214672757750193212, guid: 72ce5e14eb12eb74fbf9cf8a9799b6c2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1055,3 +1050,4 @@ SceneRoots:
   - {fileID: 1362809274}
   - {fileID: 429201088}
   - {fileID: 1446218675567820975}
+  - {fileID: 2049305460}

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BallController : MonoBehaviour
 {
+    [SerializeField] private TMP_Text _ballCountText = null;
     [SerializeField] private List<GameObject> balls = new List<GameObject>(); 
     [SerializeField] private float ZAxisSpeed;
     [SerializeField] private float horizontalSpeed = 10f;
@@ -16,6 +18,7 @@ public class BallController : MonoBehaviour
     {
         HorizontalMove();    
         ForwardMove();
+        UpdateBallCountText();
     }
 
     private void HorizontalMove()
@@ -49,6 +52,11 @@ public class BallController : MonoBehaviour
     private void ForwardMove()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * ZAxisSpeed);
+    }
+
+    private void UpdateBallCountText()
+    {
+        _ballCountText.text = balls.Count.ToString();
     }
 
     private void OnTriggerEnter(Collider other)
