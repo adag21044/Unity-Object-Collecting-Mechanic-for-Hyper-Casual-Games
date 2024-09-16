@@ -8,12 +8,22 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        offset = transform.position - ballTransform.position;
+        if (ballTransform != null)
+        {
+            offset = transform.position - ballTransform.position;
+        }
     }
 
     private void LateUpdate()
     {
-        Vector3 newPos = Vector3.Lerp(transform.position, ballTransform.position + offset, lerpRate * Time.deltaTime);
-        transform.position = newPos;
+        if (ballTransform != null)
+        {
+            Vector3 newPos = Vector3.Lerp(transform.position, ballTransform.position + offset, lerpRate * Time.deltaTime);
+            transform.position = newPos;
+        }
+        else
+        {
+            Debug.Log("Game Over! Ball has been destroyed.");
+        }
     }
 }

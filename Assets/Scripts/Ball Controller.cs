@@ -6,11 +6,10 @@ public class BallController : MonoBehaviour
 {
     public GameObject ballPrefab;
     [SerializeField] private TMP_Text _ballCountText = null;
-    [SerializeField] private List<GameObject> balls = new List<GameObject>(); 
+    [SerializeField] private List<GameObject> balls = new List<GameObject>();
     [SerializeField] private float ZAxisSpeed;
     [SerializeField] private float horizontalSpeed = 10f;
     [SerializeField] private float horizontalLimit = 2.14f;
-    private float horizontal;
     private bool isDragging = false;  // Fareye basılıp sürüklenip sürüklenmediğini takip eder
     private Vector3 lastMousePosition;
     public int gateNumber;
@@ -19,7 +18,7 @@ public class BallController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HorizontalMove();    
+        HorizontalMove();
         ForwardMove();
         UpdateBallCountText();
     }
@@ -102,6 +101,12 @@ public class BallController : MonoBehaviour
         {
             DecreaseBallCount(-gateNumber);  // Pozitif değerle işlem yap
         }
+
+        // Eğer topların sayısı 0 veya daha aza inerse, oyunu bitir.
+        if (balls.Count <= 0)
+        {
+            EndGame();
+        }
     }
 
     private void IncreaseBallCount(int count)
@@ -128,5 +133,17 @@ public class BallController : MonoBehaviour
             Destroy(lastBall);  // Topu yok et
         }
     }
-}
 
+    private void EndGame()
+    {
+        // Tüm topları yok et
+        foreach (var ball in balls)
+        {
+            Destroy(ball);
+        }
+
+        balls.Clear();  // Top listesini temizle
+        Debug.Log("Game Over! All balls have been destroyed.");
+        // Oyun bittiği zaman burada başka işlemler de yapabilirsiniz.
+    }
+}
